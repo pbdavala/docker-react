@@ -1,0 +1,28 @@
+version: '3'
+services:   # A service is kind of container.         
+  web:                      # container named web which uses contents of Dockerfile in the build context . (cur dir)
+    stdin_open: true
+    build:
+      context: .                  # specify the dir where the files will be pulled from. Use "." here
+      dockerfile: Dockerfile.dev  # Specify the Dockerfile variant if not default.
+    ports: 
+      - "3000:3000"               # local port : container port
+    volumes:                      # Create references in container to outside folder for auto refresh of changes
+      - /app/node_modules         # Permanent folder inside container. No mapping to outside folders.
+      - .:/app                    # curdir(.) on local machine map(:) to /app inside container
+    environment: 
+      - CHOKIDAR_USEPOLLING=true  # For auto refreshing the page automatically. Optional though.
+  
+  # Second service to take care of the testing process.    
+  test:
+    stdin_open: true
+    build:
+      context: .                  
+      dockerfile: Dockerfile.dev  
+    volumes:                      
+      - /app/node_modules         
+      - .:/app                    
+    command: ["npm", "run", "test"] # Overriding the command specified in Dockerfile.dev 
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+    

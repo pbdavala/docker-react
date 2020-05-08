@@ -1,0 +1,15 @@
+# sudo access super user acess is required by travis
+sudo: required
+
+# A copy of docker CLI is required
+services:
+  - docker
+
+# Before running the tests or deploy, below are required
+# 1. Build the docker image from Dockerfile.dev and tag it.
+before_install:
+  -  docker build -t pdavala/docker-react -f Dockerfile.dev .
+
+# Define the scripts to be run to test
+script:
+  - docker run -e CI=true pdavala/frontend npm run test -- --coverage

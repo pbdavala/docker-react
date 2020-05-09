@@ -14,4 +14,27 @@ before_install:
 script:
   - docker run -e CI=true pdavala/docker-react npm run test -- --coverage
 
+
+# Config for deploy to AWS : DockerReact-env.eba-qsaz4hyh.us-east-2.elasticbeanstalk.com
+# App entry is taken from AWS Elastic beanstalkapplication name
+# Env is taken from AWS app's environment.
+# AWS S3 bucketname
+# bucket_name is the AWS S3 bucket name for our elstic beanstalk
+# bucket_path is same as app name in AWS
+# deploy only when master branch is updated.
+# The AWS keys added to the travis project https://travis-ci.org/github/pbdavala/docker-react
+deploy:
+  provider:     elasticbeanstalk
+  region:       "us-east-2"
+  app:          "docker-react"
+  env:          "DockerReact-env"
+  bucket_name:  "elasticbeanstalk-us-east-2-236818191254"
+  bucket_path:  "docker-react"
+  on:
+    branch: master
+  access_key_id:  $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
+
+
 #End of file..

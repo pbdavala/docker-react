@@ -11,7 +11,7 @@ COPY package*.json ./
 # Install some dependencies
 RUN npm install
 
-# Copy NOW everything from current workdir "visits" to the current workdir inside container.
+# Copy NOW everything from current workdir "frontend" to the current workdir inside container.
 #Straight copy because this is production build. We don't need volumes in docker-compose.
 COPY . .         
 

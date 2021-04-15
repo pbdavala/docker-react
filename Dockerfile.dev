@@ -10,7 +10,7 @@ COPY package.json .
 # Install some dependencies
 RUN npm install
 
-# Copy NOW everything from current workdir "visits" to the current workdir inside container.
+# Copy NOW everything from current workdir "frontend" to the current workdir inside container.
 #Optional now because docker-compose.yml has a volume step .:/app  Leave it to be safe if no docker-compose
 COPY . .         
 

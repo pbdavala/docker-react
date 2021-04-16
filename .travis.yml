@@ -1,4 +1,4 @@
-language: generic  # Per Section 7.93
+#language: generic  # Per Section 7.93
 # sudo access super user acess is required by travis
 sudo: required
 
@@ -9,11 +9,11 @@ services:
 # Before running the tests or deploy, below are required
 # 1. Build the docker image from Dockerfile.dev and tag it.
 before_install:
-  #-  docker build -t pdavala/docker-react -f Dockerfile.dev .
-  -  docker build -t pdavala/docker-react .
+  -  docker build -t pdavala/docker-react -f Dockerfile.dev .
+  
 # Define the scripts to be run to test
-#script:
-  #- docker run -e CI=true pdavala/docker-react npm run test -- --coverage
+script:
+  - docker run -e CI=true pdavala/docker-react npm run test -- --coverage
 
 
 # Config for deploy to AWS : DockerReact-env.eba-qsaz4hyh.us-east-2.elasticbeanstalk.com

@@ -15,4 +15,5 @@ RUN npm install
 COPY . .         
 
 # Default RUN Command
+#CMD ["npm", "run", "test"]
 CMD ["npm", "run", "start"]

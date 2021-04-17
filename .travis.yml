@@ -24,7 +24,7 @@ script:
 # bucket_path is same as app name in AWS
 # deploy only when master branch is updated.
 # The AWS keys added to the travis project https://travis-ci.org/github/pbdavala/docker-react
-# URL http://dockerreact-env.eba-d9whudek.us-east-2.elasticbeanstalk.com/ as per 04/14/21
+# URL http://dockerreact-env.eba-ysmeqfiz.us-east-2.elasticbeanstalk.com/ as per 04/14/21
 deploy:
   provider:     elasticbeanstalk
   region:       "us-east-2"

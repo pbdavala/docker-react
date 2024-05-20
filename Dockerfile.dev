@@ -1,0 +1,32 @@
+# specify a base image. Use the node docker image which is alpine. (minimal)
+FROM node:16-alpine
+
+# User "node" will execute RUN, CMD or ENTRYPOINT instructions instead of root user.
+USER node
+
+# We are then creating a directory of /home/node/app prior to the WORKDIR instruction. 
+# This will prevent a permissions issue since WORKDIR by default, 
+# will create a directory if it does not exist and set ownership to root.
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+
+# Copy only package.json from current workdir "frontend" to the current workdir inside container
+# The inline chown commands will set ownership of the files you are copying, 
+# from your local environment to the "node" user in the container.
+# The end result is that some files and directories will no longer be owned by root, 
+# and no npm processes will be run by the root user. 
+# Instead, they will all be owned and run by the node user.
+COPY --chown=node:node ./package.json ./
+
+# Install some dependencies
+RUN npm install
+
+# Copy NOW everything from current workdir "frontend" to the current workdir inside containser.
+# This below copy is optional now as docker-compose has a volume step ".:/home/node/app"
+# and because of this the current directory is already mapped to folder inside container
+# and we don't need to explicity copy this again here. 
+# We will leave it in place so as to make it work even without a docker-compose file.
+COPY --chown=node:node ./ ./        
+
+# Default RUN Command
+CMD ["npm", "start"]

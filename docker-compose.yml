@@ -1,0 +1,26 @@
+# This docker-compose is replacing the below big command
+# docker run -it -p 3000:3000 -v /app/node_modules -v $(pwd):/app <CONTAINER_ID>      <-- This is for Windows
+# docker run -it -p 3000:3000 -v /home/node/app/node_modules -v $(pwd):/home/node/app <CONTAINER_ID>    <-- Ubuntu version
+
+# version: "3"          # version is not needed anymore. Latest version is always used.
+
+services:
+  web:                  # container named web which uses contents of Dockerfile in the build context . (cur dir)
+    build:
+      context: .        # specify the dir where the files will be pulled from. Use "." here.
+      dockerfile: Dockerfile.dev    # Specify the Dockerfile variant if not default.
+    ports:
+      - "3000:3000"     # local port : container port.   # single "-" at the begining of the statement represents a list.
+    volumes:
+      - /home/node/app/node_modules     # Permanent folder inside container. No mapping to outside folders.
+      - .:/home/node/app                # Map (:) the current dir on local machine outside (.) to /home/node/app inside the container
+
+  # Second service for testing
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/node_modules
+      - .:/home/node/app
+    command: ["npm", "run", "test"]   # Overriding the default command for tests. Default is npm start in Dockerfile.dev

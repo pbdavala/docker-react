@@ -12,15 +12,17 @@ services:
 # Before running the tests or deploy, below are required
 # 1. Build the docker image from Dockerfile.dev and tag it.
 before_install:
-  #- docker build -t pdavala/docker-react -f Dockerfile.dev .
   - docker build -t pdavala/docker-react .
+
+#- docker build -t pdavala/docker-react -f Dockerfile.dev .
+  
 
 
 # Define the scripts to be run to test. 
 # "-- --coverage" option does not let npm run test wait for user input. It exits after test completes.
 # -e CI=true replaces the -- --coverage option below.
 script:
-  - docker run -e CI=true pdavala/docker-react npm run test  -- --coverage
+  - docker run -e CI=true pdavala/docker-react npm run test
 #  - docker run pdavala/docker-react npm run test -- --coverage
 
 # ------- Config for deploy to AWS Elastic Beanstalk --------------

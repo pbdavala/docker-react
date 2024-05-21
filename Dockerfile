@@ -2,7 +2,7 @@
 # First we build, copy the built folder to run phase and execute run phase.
  
 # specify a base image. Tagged as builder
-FROM node:16-alpine as builder
+FROM node:16-alpine
 
 # work dir setup in the container. Will be created if does not exist
 WORKDIR '/app'
@@ -32,6 +32,6 @@ EXPOSE 80
 
 # Copy the build folder from build phase location /app/build into the run container /usr/...
 # Anything copied to /usr/share/nginx/html will be automatically served by nginx by default
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 # Default command to start nginx in a nginx container is automatically taken care of. No need to start nginx specifically.

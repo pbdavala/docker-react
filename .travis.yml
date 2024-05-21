@@ -12,7 +12,8 @@ services:
 # Before running the tests or deploy, below are required
 # 1. Build the docker image from Dockerfile.dev and tag it.
 before_install:
-  - docker build -t pdavala/docker-react -f Dockerfile.dev .
+  #- docker build -t pdavala/docker-react -f Dockerfile.dev .
+  - docker build -t pdavala/docker-react .
 
 
 # Define the scripts to be run to test. 

@@ -21,3 +21,23 @@ before_install:
 script:
   - docker run -e CI=true pdavala/docker-react npm run test  -- --coverage
 #  - docker run pdavala/docker-react npm run test -- --coverage
+
+# ------- Config for deploy to AWS Elastic Beanstalk --------------
+# App entry is taken from AWS Elastic beanstalk application name
+# Env is taken from AWS app's environment.
+# AWS S3 bucketname is the AWS S3 bucket name for our elastic beanstalk
+# bucket_path is same as app name in AWS
+# deploy only when master branch is updated.
+# The AWS keys added to the travis project docker-react in travis CI
+# URL http://frontend-env.eba-b3w7k6en.ap-south-1.elasticbeanstalk.com/ as of 05/21/24
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"          # Region where elasticbeanstalk app is created
+  app: "frontend"               # name of elasticbeanstalk app
+  env: "Frontend-env"           # env name of elasticbeanstalk app
+  bucket_name: "elasticbeanstalk-ap-south-1-085452595866"     # S3 bucker for elasticbeanstalk app.
+  bucket_path: "frontend"
+  on:
+    branch: main
+  access_key_id:  $AWS_ACCESS_KEY       # IAM User docker-react-travis-ci_user's access Key : env var in docker-react repo in travis
+  secret_access_key: "$AWS_SECRET_KEY"  # docker-react-travis-ci_user's secret access Key   :  env var in docker-react repo in travis

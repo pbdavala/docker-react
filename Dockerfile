@@ -27,6 +27,9 @@ RUN npm run build
 
 FROM nginx
 
+# Expose port 80 for Elastic Beanstalk. 80 is mapped for incoming traffic for container.
+EXPOSE 80
+
 # Copy the build folder from build phase location /app/build into the run container /usr/...
 # Anything copied to /usr/share/nginx/html will be automatically served by nginx by default
 COPY --from=builder /app/build /usr/share/nginx/html

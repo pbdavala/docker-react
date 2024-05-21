@@ -40,4 +40,4 @@ deploy:
   on:
     branch: main
   access_key_id:  $AWS_ACCESS_KEY       # IAM User docker-react-travis-ci_user's access Key : env var in docker-react repo in travis
-  secret_access_key: "$AWS_SECRET_KEY"  # docker-react-travis-ci_user's secret access Key   :  env var in docker-react repo in travis
+  secret_access_key: $AWS_SECRET_KEY    # docker-react-travis-ci_user's secret access Key   :  env var in docker-react repo in travis

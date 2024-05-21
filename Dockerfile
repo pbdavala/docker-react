@@ -8,7 +8,7 @@ FROM node:16-alpine
 WORKDIR '/app'
 
 # Copy only package.json from current workdir "frontend" to the current workdir inside container.
-COPY package.json .
+COPY package*.json ./
 
 # Install some dependencies
 RUN npm install

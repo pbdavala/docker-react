@@ -1,0 +1,23 @@
+# So now anytime that Travis sees  that we have pushed a new commit up to GitHub,  
+# it's gonna clone all of our code  and then use these series of directions  to build our docker image, run some tests,  
+# and then report on whether our tests succeeded or failed. 
+
+# sudo access super user acess is required by travis
+sudo: required
+
+# A copy of docker CLI is required. Travis installs docker into the container
+services:
+  - docker
+
+# Before running the tests or deploy, below are required
+# 1. Build the docker image from Dockerfile.dev and tag it.
+before_install:
+  - docker build -t pdavala/docker-react -f Dockerfile.dev .
+
+
+# Define the scripts to be run to test. 
+# "-- --coverage" option does not let npm run test wait for user input. It exits after test completes.
+# -e CI=true replaces the -- --coverage option below.
+script:
+  - docker run -e CI=true pdavala/docker-react npm run test
+#  - docker run pdavala/docker-react npm run test -- --coverage

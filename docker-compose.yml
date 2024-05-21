@@ -8,7 +8,7 @@ services:
   web:                  # container named web which uses contents of Dockerfile in the build context . (cur dir)
     build:
       context: .        # specify the dir where the files will be pulled from. Use "." here.
-      dockerfile: Dockerfile.dev    # Specify the Dockerfile variant if not default.
+      dockerfile: Dockerfile.dev    # Specify the Dockerfile variant if not default..
     ports:
       - "3000:3000"     # local port : container port.   # single "-" at the begining of the statement represents a list.
     volumes:
